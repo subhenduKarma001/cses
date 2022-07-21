@@ -1,46 +1,34 @@
-#include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
- 
+#include "bits/stdc++.h"
 using namespace std;
-using namespace __gnu_pbds;
- 
+
 #define ll long long
-#define nline '\n'
- 
-int N, cnt[26];
-string S, perm;
-vector<string> perms;
- 
- 
-void search() {
-	if(perm.size() == S.size()) {
-		perms.push_back(perm);
-		return ;
-	}
- 
-	for(int i=0; i<26; ++i) {
-		if(cnt[i]) {
-			--cnt[i];
-			perm += char('a' + i);
-			search();
-			++cnt[i];
-			perm.pop_back();
-		}
+#define endl "\n"
+
+// Creating Strings
+
+void solve() {
+	string s;
+	cin >> s;
+	vector<string> ans;
+	
+	// imp to sort other wise next_permutation() will fail
+	sort(s.begin(), s.end());	
+	
+	do {
+		ans.push_back(s);
+	} while (next_permutation(s.begin(), s.end()));
+	
+	cout << ans.size() << endl;
+	for(auto s : ans) {
+		cout << s << endl;
 	}
 }
- 
- 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+
+int32_t main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0); cout.tie(0);
+
+	solve();
 	
-	cin >> S;
-	for(char c : S) 
-		cnt[c - 'a']++;
-	search();
-	cout << perms.size() << nline;
-	for(string t : perms) 
-		cout << t << nline;
- 
 	return 0;
 }
